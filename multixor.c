@@ -7,7 +7,7 @@
 
 int main(int argc, char* argv[])
 {
-    	int i, res = 0;
+    	int i, res = 0, results[NUM_THREADS];
     	pthread_t threads[NUM_THREADS];
 	AllStrings allStrings = initAllStrings();
 
@@ -25,7 +25,8 @@ int main(int argc, char* argv[])
 
 	// wait for each thread to complete
     	for (i = 0; i < NUM_THREADS; i++) {
-        	pthread_join(threads[i], (void*)&res);
+        	pthread_join(threads[i], (void*)&results[i]);
+		res ^= results[i];
     	}
 
     	printf("xor of all strings: %d\n", res);
