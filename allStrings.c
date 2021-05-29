@@ -9,7 +9,6 @@ AllStrings *initAllStrings(int totalStrings) {
 
 	allStrings = (AllStrings*)malloc(sizeof(AllStrings));
 	if (!allStrings) {
-		fprintf(stderr, "Failed to allocate\n");
 	    	return NULL;
 	}
 
@@ -20,7 +19,6 @@ AllStrings *initAllStrings(int totalStrings) {
 		// Allocate the exact size according to the number of strings that should be in the thread
 		allStrings->stringsParts[i].strings = (char**)malloc(size * sizeof(char*));
 		if (!allStrings->stringsParts[i].strings) {
-			fprintf(stderr, "Failed to reallocate\n");
 	    		return NULL;
 		}
 

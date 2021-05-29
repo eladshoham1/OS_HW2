@@ -7,13 +7,19 @@ int main(int argc, char* argv[])
 {
     	int i, res = 0, results[NUM_THREADS];
     	pthread_t threads[NUM_THREADS];
-	AllStrings *allStrings = initAllStrings(argc - 1);
+	AllStrings *allStrings = NULL;
 
 	// Check if user enter strings
     	if (argc <= 1) {
     		fprintf(stderr, "There is no strings\n");
     	    	return 0;
     	}
+
+	allStrings = initAllStrings(argc - 1);
+	if (!allStrings) {
+		fprintf(stderr, "Failed to allocate\n");
+		return 0;
+	}
 
 	// Split argv strings to threads
 	splitStringsToThreads(allStrings, argv + 1, argc - 1);
