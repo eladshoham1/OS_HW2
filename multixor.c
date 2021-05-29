@@ -2,13 +2,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include <pthread.h>
-#include "globals.h"
 #include "xorlib.h"
 #include "AllStrings.h"
 
 int main(int argc, char* argv[])
 {
-    	int i;
+    	int i, res = 0;
     	pthread_t threads[NUM_THREADS];
 	AllStrings allStrings = initAllStrings();
 
@@ -21,12 +20,12 @@ int main(int argc, char* argv[])
 
 	// create all threads one by one
     	for (i = 0; i < NUM_THREADS; i++) {
-        	pthread_create(&threads[i], NULL, (void *)calculate_strxor, allStrings.stringsParts[i]);
+        	pthread_create(&threads[i], NULL, (void *)calculate_strxor, &allStrings.stringsParts[i]);
     	}
 
 	// wait for each thread to complete
     	for (i = 0; i < NUM_THREADS; i++) {
-        	pthread_join(threads[i], NULL);
+        	pthread_join(threads[i], (void*)&res);
     	}
 
     	printf("xor of all strings: %d\n", res);

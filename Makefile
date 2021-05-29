@@ -8,7 +8,7 @@ $(EXEC) : $(OBJS)
 	$(CC) $(OBJS) -o $@ -lpthread
 
 multixor.o: multixor.c xorlib.h AllStrings.h
-xorlib.o: xorlib.c xorlib.h
+xorlib.o: xorlib.c xorlib.h AllStrings.h
 AllStrings.o: AllStrings.c AllStrings.h
 
 clean:
