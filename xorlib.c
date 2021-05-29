@@ -5,7 +5,7 @@
 
 pthread_mutex_t lock;
 
-int calculate_strxor(void *arg) {
+int calculateStrXor(void *arg) {
 	StringsParts *stringsParts = (StringsParts*)arg;
 	int i, res = 0;
 

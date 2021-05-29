@@ -4,7 +4,7 @@
 #define EPSILON ('\0')
 
 // The function get array of strings and calculate the xor between all of them
-int calculate_strxor(void *arg);
+int calculateStrXor(void *arg);
 
 #endif
 

@@ -20,7 +20,7 @@ int main(int argc, char* argv[])
 
 	// Create all threads one by one
     	for (i = 0; i < NUM_THREADS; i++) {
-        	pthread_create(&threads[i], NULL, (void*)calculate_strxor, &allStrings->stringsParts[i]);
+        	pthread_create(&threads[i], NULL, (void*)calculateStrXor, &allStrings->stringsParts[i]);
     	}
 
 	// Wait for each thread to complete
