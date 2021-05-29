@@ -33,5 +33,3 @@ int main(int argc, char* argv[])
 	freeMemory(allStrings);
   	return 0;
 }
-
-

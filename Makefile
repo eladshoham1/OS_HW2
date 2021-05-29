@@ -13,4 +13,3 @@ allStrings.o: allStrings.c allStrings.h
 
 clean:
 	rm -f $(EXEC) $(OBJS)
-

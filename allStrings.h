@@ -22,4 +22,3 @@ void splitStringsToThreads(AllStrings *allStrings, char **strings, int numOfStri
 void freeMemory(AllStrings *allStrings);
 
 #endif
-

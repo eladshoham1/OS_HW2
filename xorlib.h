@@ -7,4 +7,3 @@
 int calculateStrXor(void *arg);
 
 #endif
-
