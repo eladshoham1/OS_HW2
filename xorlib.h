@@ -1,7 +1,10 @@
 #ifndef _MYXORLIB_H_
 #define _MYXORLIB_H_
 
-int calculate_strxor(void* arg);
+#define EPSILON ('\0')
+
+// The function get array of strings and calculate the xor between all of them
+int calculate_strxor(void *arg);
 
 #endif
 

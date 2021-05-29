@@ -1,9 +1,7 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include <pthread.h>
 #include "xorlib.h"
-#include "AllStrings.h"
+#include "allStrings.h"
 
 pthread_mutex_t lock;
 
@@ -13,7 +11,9 @@ int calculate_strxor(void *arg) {
 
 	pthread_mutex_lock(&lock);
 
+	// Calculate the xor between all the strings
 	for (i = 0; i < stringsParts->numOfStrings; i++) {
+		// Calculate the xor between all the characters in the string
 		for (char *ch = stringsParts->strings[i]; *ch != EPSILON; ch++) {
 	      		res ^= *ch;
 		}
