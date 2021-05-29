@@ -7,17 +7,15 @@
 
 pthread_mutex_t lock;
 
-void *calculate_strxor(void *arg) {
+int calculate_strxor(void *arg) {
 	StringsParts *stringsParts = (StringsParts*)arg;
-	int i, *res = 0;
-	char *str;
+	int i, res = 0;
 
 	pthread_mutex_lock(&lock);
 
 	for (i = 0; i < stringsParts->numOfStrings; i++) {
-		puts(stringsParts->strings[i]);
-		for (str = stringsParts->strings[i]; *str != EPSILON; str++) {
-	      		*res ^= *str;
+		for (char *ch = stringsParts->strings[i]; *ch != EPSILON; ch++) {
+	      		res ^= *ch;
 		}
 	}
 

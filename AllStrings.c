@@ -3,46 +3,39 @@
 #include <string.h>
 #include "AllStrings.h"
 
-AllStrings initAllStrings() {
-	AllStrings allStrings;
-	int i;
+AllStrings *initAllStrings(int totalStrings) {
+	AllStrings *allStrings = NULL;
+	int i, numOfStrings, size;
+	numOfStrings = totalStrings / NUM_THREADS;
+
+	allStrings = (AllStrings*)malloc(sizeof(AllStrings));
+	if (!allStrings) {
+		fprintf(stderr, "Failed to allocate\n");
+	    	return NULL;
+	}
 
 	for (i = 0; i < NUM_THREADS; i++) {
-		allStrings.stringsParts[i].numOfStrings = 0;
+		size = totalStrings % NUM_THREADS > i ? numOfStrings + 1 : numOfStrings;
+		allStrings->stringsParts[i].strings = (char**)malloc(size * sizeof(char*));
+		if (!allStrings->stringsParts[i].strings) {
+			fprintf(stderr, "Failed to reallocate\n");
+	    		return NULL;
+		}
+
+		allStrings->stringsParts[i].numOfStrings = size;
 	}
 
 	return allStrings;
 }
 
 void spliteStringsToParts(AllStrings *allStrings, char **strings, int numOfStrings) {
-	int i;
+	int i, j;
 
-	for (i = 0; i < numOfStrings; i++) {
-		addStringToParts(&allStrings->stringsParts[i % NUM_THREADS], strings[i]);
+	for (i = 0, j = 0; i < numOfStrings; i++) {
+		allStrings->stringsParts[i % NUM_THREADS].strings[j] = strings[i];
+
+		if (i % NUM_THREADS == NUM_THREADS - 1) {
+			j++;
+		}
 	}
 }
-
-void addStringToParts(StringsParts *stringsParts, char *str) {
-	stringsParts->strings = (char**)realloc(stringsParts->strings, (stringsParts->numOfStrings + 1) * sizeof(char*));
-	if (!stringsParts->strings) {
-		fprintf(stderr, "Failed to reallocate\n");
-    		return;
-	}
-
-	strcpy(stringsParts->strings[stringsParts->numOfStrings], str);
-	puts(stringsParts->strings[stringsParts->numOfStrings]); // no
-	stringsParts->numOfStrings++;
-}
-
-/*
-
-allStrings->stringsParts[i % NUM_THREADS].strings = (char**)realloc(allStrings->stringsParts[i % NUM_THREADS].strings, (allStrings->stringsParts[i % NUM_THREADS].numOfStrings + 1) * sizeof(char*))
-if (!allStrings->stringsParts[i % NUM_THREADS].strings) {
-	fprintf(stderr, "Failed to reallocate\n");
-	return;
-}
-
-strcpy(allStrings->stringsParts[i % NUM_THREADS].strings[allStrings->stringsParts[i % NUM_THREADS].numOfStrings], strings[i]);
-allStrings->stringsParts[i % NUM_THREADS].numOfStrings++;
-
-*/

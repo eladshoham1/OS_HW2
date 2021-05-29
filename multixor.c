@@ -9,18 +9,18 @@ int main(int argc, char* argv[])
 {
     	int i, res = 0, results[NUM_THREADS];
     	pthread_t threads[NUM_THREADS];
-	AllStrings allStrings = initAllStrings();
+	AllStrings *allStrings = initAllStrings(argc - 1);
 
     	if (argc <= 1) {
     		fprintf(stderr, "There is no strings\n");
     	    	return 0;
     	}
 
-	spliteStringsToParts(&allStrings, argv, argc);
+	spliteStringsToParts(allStrings, argv + 1, argc - 1);
 
 	// create all threads one by one
     	for (i = 0; i < NUM_THREADS; i++) {
-        	pthread_create(&threads[i], NULL, (void *)calculate_strxor, &allStrings.stringsParts[i]);
+        	pthread_create(&threads[i], NULL, (void*)calculate_strxor, &allStrings->stringsParts[i]);
     	}
 
 	// wait for each thread to complete

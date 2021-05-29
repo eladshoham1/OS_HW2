@@ -13,9 +13,8 @@ typedef struct {
     StringsParts stringsParts[NUM_THREADS];
 } AllStrings;
 
-AllStrings initAllStrings();
+AllStrings *initAllStrings(int totalStrings);
 void spliteStringsToParts(AllStrings *allStrings, char **strings, int numOfStrings);
-void addStringToParts(StringsParts *stringsParts, char *str);
 
 #endif
 
