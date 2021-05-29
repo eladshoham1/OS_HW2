@@ -3,18 +3,23 @@
 #include <string.h>
 #include <pthread.h>
 #include "xorlib.h"
+#include "AllStrings.h"
 
-/*pthread_mutex_t lock;
+pthread_mutex_t lock;
 
-int calculate_strxor(char *str) {
-	int res = 0;
+void calculate_strxor(void *arg) {
+	StringsParts *stringsParts = (StringsParts*)arg;
+	int i;
+	char *str;
 
 	pthread_mutex_lock(&lock);
 
-	for (char *ch = str; *ch != '\0'; ch++)
-      		res ^= *ch;
+	for (i = 0; i < stringsParts->numOfStrings; i++) {
+		puts(stringsParts->strings[i]);
+		for (str = stringsParts->strings[i]; *str != EPSILON; str++) {
+	      		res ^= *str;
+		}
+	}
 
     	pthread_mutex_unlock(&lock);
-
-	return res;
-}*/
+}
