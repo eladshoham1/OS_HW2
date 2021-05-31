@@ -13,10 +13,10 @@ typedef struct {
 } AllStrings;
 
 // Allocate parts of strings for each thread
-AllStrings *initAllStrings(int totalStrings);
+AllStrings *initAllStrings(char **strings, int totalStrings);
 
 // Split all strings equally between the threads
-void splitStringsToThreads(AllStrings *allStrings, char **strings, int numOfStrings);
+void splitStringsToParts(AllStrings *allStrings, char **strings, int numOfStrings);
 
 // Free the memory of all the strings parts
 void freeMemory(AllStrings *allStrings);

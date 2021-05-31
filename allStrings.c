@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "allStrings.h"
 
-AllStrings *initAllStrings(int totalStrings) {
+AllStrings *initAllStrings(char **strings, int totalStrings) {
 	AllStrings *allStrings = NULL;
 	int i, numOfStrings, size;
 	numOfStrings = totalStrings / NUM_THREADS;
@@ -24,11 +24,12 @@ AllStrings *initAllStrings(int totalStrings) {
 
 		allStrings->stringsParts[i].numOfStrings = size;
 	}
-
+	
+	splitStringsToParts(allStrings, strings, totalStrings);	
 	return allStrings;
 }
 
-void splitStringsToThreads(AllStrings *allStrings, char **strings, int numOfStrings) {
+void splitStringsToParts(AllStrings *allStrings, char **strings, int numOfStrings) {
 	int i, j;
 
 	for (i = 0, j = 0; i < numOfStrings; i++) {

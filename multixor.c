@@ -15,14 +15,11 @@ int main(int argc, char* argv[])
     	    	return 0;
     	}
 
-	allStrings = initAllStrings(argc - 1);
+	allStrings = initAllStrings(argv + 1, argc - 1);
 	if (!allStrings) {
 		fprintf(stderr, "Failed to allocate\n");
 		return 0;
 	}
-
-	// Split argv strings to threads
-	splitStringsToThreads(allStrings, argv + 1, argc - 1);
 
 	// Create all threads one by one
     	for (i = 0; i < NUM_THREADS; i++) {
