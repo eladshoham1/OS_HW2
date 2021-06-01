@@ -1,13 +1,13 @@
 #include <stdio.h>
 #include <pthread.h>
 #include "xorlib.h"
-#include "allStrings.h"
+#include "strXor.h"
 
 int main(int argc, char* argv[])
 {
-    	int i, res = 0, results[NUM_THREADS];
     	pthread_t threads[NUM_THREADS];
-	AllStrings *allStrings = NULL;
+	StrXor *strXor = NULL;
+    	int i, res = 0;
 
 	// Check if user enter strings
     	if (argc <= 1) {
@@ -15,24 +15,24 @@ int main(int argc, char* argv[])
     	    	return 0;
     	}
 
-	allStrings = initAllStrings(argv + 1, argc - 1);
-	if (!allStrings) {
+	strXor = initStrXor(argv + 1, argc - 1, NUM_THREADS);
+	if (!strXor) {
 		fprintf(stderr, "Failed to allocate\n");
 		return 0;
 	}
 
 	// Create all threads one by one
     	for (i = 0; i < NUM_THREADS; i++) {
-        	pthread_create(&threads[i], NULL, (void*)calculateStrXor, &allStrings->stringsParts[i]);
+        	pthread_create(&threads[i], NULL, (void*)calculateStrXor, &strXor[i]);
     	}
 
 	// Wait for each thread to complete
     	for (i = 0; i < NUM_THREADS; i++) {
-        	pthread_join(threads[i], (void*)&results[i]);
-		res ^= results[i];
+        	pthread_join(threads[i], NULL);
+		res ^= strXor[i].res;
     	}
 
     	printf("xor of all strings: %d\n", res);
-	freeMemory(allStrings);
+	freeMemory(strXor, NUM_THREADS);
   	return 0;
 }
