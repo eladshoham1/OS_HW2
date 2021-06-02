@@ -35,7 +35,8 @@ void splitStringsToParts(StrXor *strXor, char **strings, int numOfStrings, int n
 
 	for (i = 0; i < numOfThreads; i++) {
 		for (j = 0; j < strXor[i].numOfStrings; j++) {
-			strXor[i].strings[j] = strings[i % numOfThreads + j];
+			strXor[i].strings[j] = strings[0];
+			strings++;
 		}
 	}
 }
