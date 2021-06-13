@@ -26,11 +26,11 @@ StrXor *initStrXor(char **strings, int numOfStrings, int numOfThreads) {
 		strXor[i].res = 0;
 	}
 	
-	splitStringsToParts(strXor, strings, numOfStrings, numOfThreads);	
+	splitStringsToThreads(strXor, strings, numOfStrings, numOfThreads);	
 	return strXor;
 }
 
-void splitStringsToParts(StrXor *strXor, char **strings, int numOfStrings, int numOfThreads) {
+void splitStringsToThreads(StrXor *strXor, char **strings, int numOfStrings, int numOfThreads) {
 	int i, j;
 
 	for (i = 0; i < numOfThreads; i++) {

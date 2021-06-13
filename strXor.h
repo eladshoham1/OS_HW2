@@ -11,7 +11,7 @@ typedef struct {
 StrXor *initStrXor(char **strings, int numOfStrings, int numOfThreads);
 
 // Split all strings equally between the threads
-void splitStringsToParts(StrXor *strXor, char **strings, int numOfStrings, int numOfThreads);
+void splitStringsToThreads(StrXor *strXor, char **strings, int numOfStrings, int numOfThreads);
 
 // Free the memory of all the strings parts
 void freeMemory(StrXor *strXor, int numOfThreads);
